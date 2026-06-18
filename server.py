@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from EmotionDetection.emotion_detection import emotion_detector
 
-app = Flask('EmotionDetection')
+app = Flask('Emotion Detection')
 
 @app.route("/")
 def render_index_page():
@@ -17,6 +17,8 @@ def emotion_detection():
     joy = result['joy']
     sadness = result['sadness']
     dominant = result['dominant_emotion']
+    if dominant == None:
+        return ('Invalid text! Please try again!')
     return f'''For the given statement, the system response is 
     'anger': {anger}, 'disgust': {disgust}, 
     'fear': {fear}, 'joy': {joy}, and 'sadness': {sadness}. 
@@ -24,3 +26,4 @@ def emotion_detection():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    
